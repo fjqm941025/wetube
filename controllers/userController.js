@@ -35,6 +35,7 @@ export const postLogin = passport.authenticate("local", {
   successRedirect: routes.home,
 });
 
+//Github
 export const githubLogin = passport.authenticate("github");
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
@@ -65,9 +66,36 @@ export const githubCallback = passport.authenticate("github", {
   failureRedirect: routes.login,
 });
 
-export const postGithubLogin = (req, res) => {
+export const postSocialLogin = (req, res) => {
   res.redirect(routes.home);
 };
+
+//facebook
+export const facebookLogin = passport.authenticate("facebook");
+
+export const facebookLoginCallback = (
+  accessToken,
+  refreshToken,
+  profile,
+  cb
+) => {
+  console.log(
+    accessToken,
+    "\n==========",
+    refreshToken,
+    "\n==========",
+    profile,
+    "\n==========",
+    cb
+  );
+  // User.findOne({ facebookId: profile.id }, function (err, user) {
+  //   return cb(err, user);
+  // });
+};
+
+export const facebookCallback = passport.authenticate("facebook", {
+  failureRedirect: routes.login,
+});
 
 export const logout = (req, res) => {
   req.logout();
@@ -78,8 +106,17 @@ export const getMe = (req, res) => {
   res.render("userDetail", { pageTitle: "User Detail", user: req.user });
 };
 
-export const userDetail = (req, res) =>
-  res.render("userDetail", { pageTitle: "User Detail" });
+export const userDetail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const user = await User.findById({ id });
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
 export const editProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "edit Profile" });
 export const changePassword = (req, res) =>

@@ -7,8 +7,10 @@ import {
   postJoin,
   githubLogin,
   githubCallback,
-  postGithubLogin,
   getMe,
+  facebookLogin,
+  postSocialLogin,
+  facebookCallback,
 } from "../controllers/userController";
 import { home, search } from "../controllers/videoController";
 import routes from "../routes";
@@ -27,7 +29,10 @@ globalRouter.get(routes.logout, onlyPrivate, logout);
 globalRouter.get(routes.search, search);
 
 globalRouter.get(routes.github, githubLogin);
-globalRouter.get(routes.githubCallback, githubCallback, postGithubLogin);
+globalRouter.get(routes.githubCallback, githubCallback, postSocialLogin);
+
+globalRouter.get(routes.facebook, facebookLogin);
+globalRouter.get(routes.facebookCallback, facebookCallback, postSocialLogin);
 
 globalRouter.get(routes.me, getMe);
 
