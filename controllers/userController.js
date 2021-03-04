@@ -71,31 +71,31 @@ export const postSocialLogin = (req, res) => {
 };
 
 //facebook
-export const facebookLogin = passport.authenticate("facebook");
+// export const facebookLogin = passport.authenticate("facebook");
 
-export const facebookLoginCallback = (
-  accessToken,
-  refreshToken,
-  profile,
-  cb
-) => {
-  console.log(
-    accessToken,
-    "\n==========",
-    refreshToken,
-    "\n==========",
-    profile,
-    "\n==========",
-    cb
-  );
-  // User.findOne({ facebookId: profile.id }, function (err, user) {
-  //   return cb(err, user);
-  // });
-};
+// export const facebookLoginCallback = (
+//   accessToken,
+//   refreshToken,
+//   profile,
+//   cb
+// ) => {
+//   console.log(
+//     accessToken,
+//     "\n==========",
+//     refreshToken,
+//     "\n==========",
+//     profile,
+//     "\n==========",
+//     cb
+//   );
+//   // User.findOne({ facebookId: profile.id }, function (err, user) {
+//   //   return cb(err, user);
+//   // });
+// };
 
-export const facebookCallback = passport.authenticate("facebook", {
-  failureRedirect: routes.login,
-});
+// export const facebookCallback = passport.authenticate("facebook", {
+//   failureRedirect: routes.login,
+// });
 
 export const logout = (req, res) => {
   req.logout();
@@ -119,5 +119,6 @@ export const userDetail = async (req, res) => {
 };
 export const editProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "edit Profile" });
+
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "Change Password" });

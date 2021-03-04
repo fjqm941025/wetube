@@ -21,16 +21,16 @@ passport.use(
   )
 );
 
-passport.use(
-  new FacebookStrategy(
-    {
-      clientID: process.env.FB_ID,
-      clientSecret: process.env.FB_SECRET,
-      callbackURL: "http://localhost:4000/auth/facebook/callback",
-    },
-    facebookLoginCallback
-  )
-);
+// passport.use(
+//   new FacebookStrategy(
+//     {
+//       clientID: process.env.FB_ID,
+//       clientSecret: process.env.FB_SECRET,
+//       callbackURL: "http://localhost:4000/auth/facebook/callback",
+//     },
+//     facebookLoginCallback
+//   )
+// );
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
