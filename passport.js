@@ -1,10 +1,6 @@
 import passport from "passport";
 import GithubStrategy from "passport-github";
-import FacebookStrategy from "passport-facebook";
-import {
-  facebookLoginCallback,
-  githubLoginCallback,
-} from "./controllers/userController";
+import { githubLoginCallback } from "./controllers/userController";
 import User from "./models/User";
 import routes from "./routes";
 
