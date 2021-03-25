@@ -27,6 +27,7 @@ var videoContainer = document.getElementById("jsVideoPlayer");
 var videoPlayer = document.querySelector("#jsVideoPlayer video");
 var playBtn = document.getElementById("jsPlayButton");
 var volumeBtn = document.getElementById("jsVolumeButton");
+var fullScrnBtn = document.getElementById("jsExpandButton");
 
 function handlePlayClick() {
   if (videoPlayer.paused) {
@@ -48,9 +49,20 @@ function handleVolumeClick() {
   }
 }
 
+function handleExpandClick() {
+  console.log(document.fullscreenElement);
+
+  if (!document.fullscreenElement) {
+    videoPlayer.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+
 function init() {
   playBtn.addEventListener("click", handlePlayClick);
   volumeBtn.addEventListener("click", handleVolumeClick);
+  fullScrnBtn.addEventListener("click", handleExpandClick);
 }
 
 if (videoContainer) {
