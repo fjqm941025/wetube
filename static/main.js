@@ -33,6 +33,7 @@ var volumeBtn = document.getElementById("jsVolumeButton");
 var fullScrnBtn = document.getElementById("jsExpandButton");
 var currentTime = document.getElementById("currentTime");
 var totalTime = document.getElementById("totalTime");
+var volumeRange = document.getElementById("jsVolume");
 
 function handlePlayClick() {
   if (videoPlayer.paused) {
@@ -48,9 +49,11 @@ function handleVolumeClick() {
   if (videoPlayer.muted) {
     videoPlayer.muted = false;
     volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+    volumeRange.value = videoPlayer.volume;
   } else {
     videoPlayer.muted = true;
     volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+    volumeRange.value = 0;
   }
 }
 
@@ -100,12 +103,27 @@ function handleEnded() {
   playBtn.innerHTML = '<i class="fas fa-play"></i>';
 }
 
+function handleDrag(event) {
+  var value = event.target.value;
+  videoPlayer.volume = value;
+
+  if (value >= 0.6) {
+    volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+  } else if (value >= 0.3) {
+    volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+  } else {
+    volumeBtn.innerHTML = '<i class="fas fa-volume-off"></i>';
+  }
+}
+
 function init() {
+  videoPlayer.volume = 0.5;
   playBtn.addEventListener("click", handlePlayClick);
   volumeBtn.addEventListener("click", handleVolumeClick);
   fullScrnBtn.addEventListener("click", handleExpandClick);
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
   videoPlayer.addEventListener("ended", handleEnded);
+  volumeRange.addEventListener("input", handleDrag);
 }
 
 if (videoContainer) {
