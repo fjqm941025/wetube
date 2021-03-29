@@ -489,6 +489,15 @@ input[type="submit"] {
       font-size: 25px;
       cursor: pointer; }
 
+.record-container {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 50px; }
+  .record-container video {
+    width: 100%;
+    background-color: #444444;
+    margin-bottom: 5px; }
+
 .home-videos {
   display: grid;
   grid-template-columns: repeat(6, minmax(150px, 1fr));

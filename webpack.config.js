@@ -8,6 +8,9 @@ const OUTPUT_DIR = path.join(__dirname, "static");
 
 const config = {
   entry: ENTRY_FILE,
+  // {
+  //   app: ["babel-polyfill", "./assets/js/main.js"],
+  // },
   mode: MODE,
   devtool: "source-map",
   module: {
