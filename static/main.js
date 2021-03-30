@@ -156,16 +156,7 @@ var recorderContainer = document.getElementById("jsRecordContainer");
 var recordBtn = document.getElementById("jsRecordButton");
 var videoPreview = document.getElementById("jsVideoPreview");
 var streamObject;
-
-var handleVideoData = function handleVideoData(event) {
-  console.log(event);
-};
-
-var startRecording = function startRecording() {
-  var videoRecorder = new MediaRecorder(streamObject);
-  videoRecorder.start();
-  videoRecorder.addEventListener("dataavailable", handleVideoData);
-};
+var videoRecorder;
 
 var getVideo = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -218,6 +209,28 @@ var getVideo = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
+
+var handleVideoData = function handleVideoData(event) {
+  var videoFile = event.data;
+  var link = document.createElement("a");
+  link.href = URL.createObjectURL(videoFile);
+  link.download = "recorded.webm";
+  document.body.appendChild(link);
+  link.click();
+};
+
+var stopRecording = function stopRecording() {
+  videoRecorder.stop();
+  recordBtn.innerHTML = "Start recording";
+  recordBtn.addEventListener("click", getVideo);
+};
+
+var startRecording = function startRecording() {
+  videoRecorder = new MediaRecorder(streamObject);
+  videoRecorder.start();
+  videoRecorder.addEventListener("dataavailable", handleVideoData);
+  recordBtn.addEventListener("click", stopRecording);
+};
 
 function init() {
   recordBtn.addEventListener("click", getVideo);
